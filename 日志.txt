@@ -4,3 +4,26 @@ First page---上传商品页面（4.19记）
   1.3、15s语音介绍
   1.4、flexbox学习
   2.1、页面设计
+
+	"tabBar": {
+		"list": [
+			{
+				"pagePath": "pages/Home_page/home",
+				"text": "主页"
+			},
+			{
+				"pagePath": "pages/Category_page/category",
+				"text": "分类"
+			},
+			{
+				"pagePath": "pages/Seller_page/seller",
+				"text": "卖家中心"
+			},
+			{
+				"pagePath": "pages/Zhuce_page/zhuce",
+				"text": "个人中心"
+			}
+		],
+		"color": "blue",
+		"opacity": 0
+	},

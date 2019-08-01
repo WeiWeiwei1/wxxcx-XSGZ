@@ -12,7 +12,8 @@
 		"pages/chat/chat",
 		"pages/trolley/trolley",
 		"pages/shop/shop",
-		"pages/buy/buy"
+		"pages/buy/buy",
+		"pages/chatlist/chatlist"
 	],
 	"window": {
 		"backgroundTextStyle": "light",
@@ -20,28 +21,6 @@
 		"navigationBarTitleText": "测试号",
 		"navigationBarTextStyle": "white",
 		"backgroundColor": "red"
-	},
-	"tabBar": {
-		"list": [
-			{
-				"pagePath": "pages/Home_page/home",
-				"text": "主页"
-			},
-			{
-				"pagePath": "pages/Category_page/category",
-				"text": "分类"
-			},
-			{
-				"pagePath": "pages/Seller_page/seller",
-				"text": "卖家中心"
-			},
-			{
-				"pagePath": "pages/Zhuce_page/zhuce",
-				"text": "个人中心"
-			}
-		],
-		"color": "blue",
-		"opacity": 0
 	},
 	"sitemapLocation": "sitemap.json"
 }

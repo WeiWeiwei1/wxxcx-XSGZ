@@ -1,0 +1,51 @@
+<view  stytle=" overflow-x: hidden; overflow-y: auto; ">
+<view class="serach">
+<view class="serach_view_show" bindtap="bindtap"> 搜索</view>
+</view>
+
+  <view class="message_list">
+		<!-- 循环列表 -->
+     <block wx:for="{{serverList}}" >
+		 		<!-- 跳转到聊天页 -->
+        <navigator url="../chat/chat">		
+          <view class="item" bindtap='click_messge' data-indexmsg="{{index}}" data-openid='{{item.openid}}'>
+							<!-- 联系人头像 -->
+             <view class="item-left">
+                  <image src="{{item.avatarUrl}}" class="image"/>
+             </view>
+
+             <view class="item-middle">
+						 			<!-- 联系人昵称 -->
+                  <view>
+                       <text class="title">{{item.name}}</text>
+                  </view>
+									<!-- 聊天最新消息（自己的或联系人的） -->
+                  <view>
+                      <text class="message">{{item.newmsg}}</text>
+                  </view>
+            </view>
+            <view class="item_right">
+								<!-- 最后一次聊天时间 -->
+                <view><text class="time">{{item.newtime}}</text></view>
+								<!-- 未读消息数  当hidd为true时隐藏-->
+                <view  class="mark" wx:if="{{item.count>0}}"><text class="text">{{item.count}}</text></view>
+            </view>
+         </view>
+         <view  class="line"></view>
+       </navigator>
+    </block>
+  </view>
+</view>
+
+
+
+
+
+
+<!-- tabbar -->
+<van-tabbar active="{{ active }}" bind:change="onChange">
+  <van-tabbar-item icon="home-o">主页</van-tabbar-item>
+  <van-tabbar-item icon="search" dot>分类</van-tabbar-item>
+  <van-tabbar-item icon="friends-o" info="{{count}}">消息</van-tabbar-item>
+  <van-tabbar-item icon="setting-o" info="20">个人</van-tabbar-item>
+</van-tabbar>

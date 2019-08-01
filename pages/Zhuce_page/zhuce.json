@@ -1,4 +1,7 @@
 {
-  "usingComponents": {},
+  "usingComponents": {
+		"van-tabbar": "../../mimiprogram/miniprogram_npm/vant-weapp/tabbar",
+		"van-tabbar-item": "../../mimiprogram/miniprogram_npm/vant-weapp/tabbar-item"
+	},
   "navigationBarBackgroundColor":"#C9C2B6"
 }

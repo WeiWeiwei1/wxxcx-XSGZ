@@ -42,7 +42,7 @@
 			"list": []
 		},
 		"miniprogram": {
-			"current": 3,
+			"current": 4,
 			"list": [
 				{
 					"id": 0,
@@ -70,6 +70,13 @@
 					"name": "zhuce",
 					"pathName": "pages/Zhuce_page/zhuce",
 					"query": "",
+					"scene": null
+				},
+				{
+					"id": 4,
+					"name": "chat",
+					"pathName": "pages/chat/chat",
+					"query": "openid=o2M-W5P3efjStrIV7BRmPrPNrFwo",
 					"scene": null
 				}
 			]
