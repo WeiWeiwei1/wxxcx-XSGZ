@@ -2,6 +2,8 @@
 const app = getApp()
 console.log(app.globalData)
 wx.cloud.init()
+const db = wx.cloud.database()
+const chat = require('../../utils/chat.js')
 Page({
 
   /**
@@ -21,8 +23,52 @@ Page({
     // 我的商品列表
     myComodity:[],
     // 我的分享
-    share:[]
+    share:[],
+		// tabbar
+		active: 3,
+		icon: {
+			normal: '//img.yzcdn.cn/icon-normal.png',
+			active: '//img.yzcdn.cn/icon-active.png'
+		},
+		count: '',
+		// 用户信息
+		user_openid: '',
+		avatarUrl: '',
+		name: '',
+
   },
+	// tabbar
+	onChange(event) {
+		console.log(event.detail);
+		var tabbarlist = app.globalData.tabbarlist
+		wx.redirectTo({
+			url: tabbarlist[event.detail]
+		})
+	},
+	// ----
+	// 注册用户
+	add_yundata: function () {
+		var that = this
+		db.collection('user').where({
+			_openid: that.openid
+		}).get({
+			success: function (res) {
+				console.log(res.data.length)
+				if (res.data.length == 0) {
+					wx.cloud.callFunction({
+						name: 'adduser',
+						data: {
+							openid: that.data.openid,
+							avatarUrl: that.data.userInfo.avatarUrl,
+							name: that.data.userInfo.nickName
+						}
+					}).then(res => {
+						console.log(res)
+					})
+				}
+			}
+		})
+	},
   getUserinfo:function(){
     app.getUserinfo
     setTimeout(
@@ -56,7 +102,17 @@ Page({
    */
   onLoad: function (options) {
     // 获取当前app用户信息权限 信息
-	
+		var that = this
+		var promise1 = new Promise(function(resolve,reject){
+		 
+			 chat.user_openid(resolve)
+		
+		})
+		promise1.then(res=>{
+			that.setData({
+				user_openid: res
+			}) 	
+		})
     if (app.globalData.userInfo) {
       this.setData({
         userInfo: app.globalData.userInfo,
@@ -68,7 +124,8 @@ Page({
       app.userInfoReadyCallback = res => {
         this.setData({
           userInfo: res.userInfo,
-          hasUserInfo: true
+          hasUserInfo: true,
+					name:res.nickName
         })
       }
     } else {

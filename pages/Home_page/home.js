@@ -1,12 +1,30 @@
 // pages/Home_page/home.js
+const app = getApp()
 Page({
 
   /**
    * 页面的初始数据
    */
   data: {
+		// tabbar
+		count: "",
+		active: 0,
+		icon: {
+			normal: '//img.yzcdn.cn/icon-normal.png',
+			active: '//img.yzcdn.cn/icon-active.png'
+		}
+		// ----
 
   },
+	// tabbar
+	onChange(event) {
+		console.log(event.detail);
+		var tabbarlist = app.globalData.tabbarlist
+		wx.redirectTo({
+			url: tabbarlist[event.detail]
+		})
+	},
+	// ----
 	goto_comodity:function(){
 		wx.navigateTo({
 			url: '../index/index'

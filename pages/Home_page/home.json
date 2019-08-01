@@ -1,5 +1,7 @@
 {
   "usingComponents": {
-    "myheard":"../../component/component/myheader"
+    "myheard":"../../component/component/myheader",
+		"van-tabbar": "../../mimiprogram/miniprogram_npm/vant-weapp/tabbar",
+		"van-tabbar-item": "../../mimiprogram/miniprogram_npm/vant-weapp/tabbar-item"
   }
 }

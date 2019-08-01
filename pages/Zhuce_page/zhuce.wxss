@@ -1,6 +1,6 @@
 /* pages/Zhuce_page/zhuce.wxss */
 page{
-  background-image: url(https://6861-hallo-word-26386e-1258705789.tcb.qcloud.la/App/background_img/background2.png?sign=3a93a1858cb923e111ac37c182404856&t=1556201462);
+  /* background-image: url(https://6861-hallo-word-26386e-1258705789.tcb.qcloud.la/App/background_img/background2.png?sign=3a93a1858cb923e111ac37c182404856&t=1556201462); */
 }
 .zhuce{
   
@@ -55,6 +55,7 @@ page{
   top: 40vh;
   left: 20px;
   font-size: 20px;
+	
 }
 .buy{
   width: 100%;

@@ -2,3 +2,12 @@
 <view wx:for="{{category}}">
     <button id='{{index}}'>{{index}}:{{item}}</button>
 </view>
+
+
+<!-- tabbar -->
+<van-tabbar active="{{ active }}" bind:change="onChange">
+  <van-tabbar-item icon="home-o">主页</van-tabbar-item>
+  <van-tabbar-item icon="search" dot>分类</van-tabbar-item>
+  <van-tabbar-item icon="friends-o" info="{{count}}">消息</van-tabbar-item>
+  <van-tabbar-item icon="setting-o" info="20">个人</van-tabbar-item>
+</van-tabbar>
