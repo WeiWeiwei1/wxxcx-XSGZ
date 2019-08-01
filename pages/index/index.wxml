@@ -1,0 +1,14 @@
+<view class="topShow"></view>
+<view class='bg_all'>
+	<view class='commodity_all' wx:for="{{data_all}}" bindtap='gotoCommodity' data-commodity = "{{data_all[index].comodity_id}}">
+		<image  src='{{imageURL[index].tempFileURL}}' class='commodity_image'></image>
+		<view class="commodity_recommend">
+			<view class='commodity_title'>{{data_all[index].title}}</view>
+			<view class='commodity_prise'>¥{{data_all[index].prise}}</view>
+			<text class='commodity_description'>{{data_all[index].description}}</text>
+			<button wx:if="{{data_all[index].record_fileID.length}}" class='commodity_voice' catchtap='click_record' data-index='{{index}}' hover-stop-propagation="{{true}}">
+				<van-icon name="volume-o" class='van-icon'/>
+			</button>
+		</view>
+	</view>
+</view>

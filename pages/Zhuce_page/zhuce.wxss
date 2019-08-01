@@ -1,0 +1,91 @@
+/* pages/Zhuce_page/zhuce.wxss */
+page{
+  background-image: url(https://6861-hallo-word-26386e-1258705789.tcb.qcloud.la/App/background_img/background2.png?sign=3a93a1858cb923e111ac37c182404856&t=1556201462);
+}
+.zhuce{
+  
+}
+.backGround{
+  height: 100vh;
+}
+.userinfo {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+}
+
+.userinfo-avatar {
+  width: 128rpx;
+  height: 128rpx;
+  margin: 20rpx;
+  border-radius: 50%;
+  position: fixed;
+  top: 10px;
+  left: 10px;
+}
+
+.userinfo-nickname {
+  color: rgb(82, 80, 80);
+  position: fixed;
+  top: 35px;
+  left:100px;
+}
+
+.usermotto {
+  margin-top: 200px;
+}
+.collectible{
+  width: 100%;
+  height: 10vh;
+  position: absolute;
+  top:20vh;
+  left: 20px;
+  font-size: 20px
+}
+.browsed{
+  width: 100%;
+  position: absolute;
+  top: 30vh;
+  left: 20px;
+  font-size: 20px;
+}
+.myComodity{
+  width: 100%;
+  position: absolute;
+  top: 40vh;
+  left: 20px;
+  font-size: 20px;
+}
+.buy{
+  width: 100%;
+  position: absolute;
+  top: 50vh;
+  left: 20px;
+  font-size: 20px;
+  
+}
+.share{
+  width: 100%;
+  position: absolute;
+  top: 60vh;
+  left: 20px;
+  font-size: 20px;
+}
+.set{
+   width: 100%;
+  position: absolute;
+  top: 70vh;
+  left: 20px;
+  font-size: 20px;
+}
+.right{
+  position: relative;
+  left:80vw;
+  bottom: 4.3vh
+}
+.number{
+  position: relative;
+  left:70vw;
+  bottom: 8.2vh;
+  opacity:0.5
+}

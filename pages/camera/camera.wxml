@@ -1,0 +1,12 @@
+<view>
+	<camera class = "diycamera" frame-size="medium" style='width:{{windowWidth-10}}px;height:{{(windowWidth-10)*1.4}}px;'>	
+		<cover-view class='tip'>请拍摄三张图片</cover-view>
+	</camera>
+	<cover-image wx:if="{{srcFirst}}" src='{{srcFirst}}' class='first-photo'></cover-image>
+	<cover-image wx:if="{{srcSecond}}" src='{{srcSecond}}' class='second-photo'></cover-image>
+	<cover-image wx:if="{{srcThird}}" src='{{srcThird}}' class='third-photo'></cover-image>
+	<cover-view class='circle' bindtap='take_photo'></cover-view>
+	<cover-view wx:if="{{count === 0}}" class='cancel' bindtap='take_quit'>返回</cover-view>
+	<cover-view wx:if="{{count != 0}}" class='cancel' bindtap='take_cancel'>取消</cover-view>
+	<cover-view wx:if="{{count === 3}}" class='ok' bindtap='take_success'>完成</cover-view>
+</view>

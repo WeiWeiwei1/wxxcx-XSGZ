@@ -1,0 +1,37 @@
+<!-- 买家页 -->
+<!-- 获取用户自身发布的商品信息，在新页打开 -->
+<!-- 获取买家支付信息 -->
+<!-- 用户收藏的商品 -->
+<!-- 客服中心 -->
+<button bindtap='goZhuce'>跳转到注册页</button>
+<button bindtap='uploadFils'>上传</button>
+<button bindtap='downloadFils'>获取上传文件真实链接</button>
+<button bindtap='lookUser'>打印用户信息</button>
+<button bindtap='change'>弹出modal</button>
+<!-- <modal
+  title="请选择商品分类" 
+  confirm-text="确定"
+  hidden="{{show_modal}}"
+  no-cancel="{{true}}"
+  bindconfirm="change_modal"> -->
+  <picker-view
+            indicator-style="height: 50px;weight:50%;"
+            style="height: 300px;weight:50%;disply:inline-block;"
+            value="{{value}}"
+            bindchange="bindChange"
+          >
+            <picker-view-column>
+              <view wx:for="{{category}}" style="line-height: 50px">{{item}}</view>
+            </picker-view-column>
+          </picker-view>
+          <picker-view
+            indicator-style="height: 50px;weight:50%;"
+            style="height: 300px;weight:50%;display:inline-block;"
+            value="{{value}}"
+            bindchange="bindChange"
+          >
+            <picker-view-column>
+              <view wx:for="{{secend}}" style="line-height: 50px">{{item}}</view>
+            </picker-view-column>
+          </picker-view>
+<!-- </modal> -->

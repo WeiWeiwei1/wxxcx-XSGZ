@@ -1,0 +1,4 @@
+<!--component/component/myheader.wxml-->
+<text>component/component/myheader.wxml</text>
+<view class='myheader'>myheader</view>
+<slot></slot>

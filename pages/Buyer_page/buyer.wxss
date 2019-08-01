@@ -1,0 +1,14 @@
+/* pages/Buyer_page/buyer.wxss */
+/*筛选框样式栏*/
+.Sizer{
+  width: 100%;
+  height: 80rpx;
+  
+}
+.text_sizer{
+  
+}
+swiper{
+  width: 100%;
+  height: 200rpx
+}

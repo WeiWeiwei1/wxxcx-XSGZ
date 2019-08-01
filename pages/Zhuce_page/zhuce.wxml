@@ -1,0 +1,18 @@
+<!--pages/Zhuce_page/zhuce.wxml-->
+<view class='backGround'>
+  <view class="container">
+    <view class="userinfo">
+      <button wx:if="{{!hasUserInfo && canIUse}}" open-type="getUserInfo" bindgetuserinfo="getUserInfo" style='plain:true' plain='true' >点击注册</button>
+      <block wx:else>
+        <image bindtap="bindViewTap" class="userinfo-avatar" src="{{userInfo.avatarUrl}}" mode="cover"></image>
+        <text class="userinfo-nickname">{{userInfo.nickName}}</text>
+        <view class='collectible'>我的收藏<view class='right'>></view><view class='number'>{{collectible.length}}</view></view>
+        <view class='browsed'>我的浏览<view class='right'>></view><view class='number'>{{browsed.length}}</view></view>
+        <view class='myComodity'>我的购买<view class='right'>></view><view class='number'>{{myComodity.length}}</view></view>
+        <view class='buy'>我的商品<view class='right'>></view><view class='number'>{{buy.length}}</view></view>
+        <view class='share'>我的分享<view class='right'>></view><view class='number'>{{share.length}}</view></view>
+        <view class='set'>我的设置</view>
+      </block>
+    </view>
+  </view>
+</view>

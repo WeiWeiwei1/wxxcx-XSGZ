@@ -1,0 +1,5 @@
+<!--pages/Seller_page/seller.wxml-->
+<!--上架自己的商品-->
+<view>
+    <button bindtap='putaway'>上架商品</button>
+</view>

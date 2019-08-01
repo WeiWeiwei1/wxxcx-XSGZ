@@ -1,0 +1,6 @@
+{
+  "usingComponents": {
+    "myheader": "../../component/component/myheader",
+		"van-icon": "../../mimiprogram/miniprogram_npm/vant-weapp/icon"
+  }
+}

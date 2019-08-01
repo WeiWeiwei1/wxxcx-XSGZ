@@ -1,0 +1,4 @@
+<!--pages/Category_page/category.wxml-->
+<view wx:for="{{category}}">
+    <button id='{{index}}'>{{index}}:{{item}}</button>
+</view>

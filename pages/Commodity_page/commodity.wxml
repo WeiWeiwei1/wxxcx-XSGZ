@@ -1,0 +1,92 @@
+<!--pages/Commodity_page/commodity.wxml-->
+<!-- 首次打开本页面,加载该视图;上传成功后隐藏该图显示上传图-->
+<canvas class='myCanvas1'  canvas-id='myCanvas1'></canvas>
+<canvas class='myCanvas2'  canvas-id='myCanvas2'></canvas>
+<canvas class='myCanvas3'  canvas-id='myCanvas3'></canvas>
+<view class='bg'>
+  <view wx:if="{{!show_photo}}" class='firstView' bindtap='goTocamera'>
+    <view class='symbol'>+</view>
+    <view class='sybol_bottom'>拍摄商品图片</view>
+  </view>
+  <!-- 图片预览，重新上传button -->
+  <block wx:else>
+    <!-- <view  class='out_image'>
+      <swiper indicator-dots='true' autoplay='true' circular='true'>
+        <swiper-item wx:for="{{imgFilePath}}">
+          <image  class='in_image' mode="aspectFill" src='{{item}}'></image>
+        </swiper-item>
+      </swiper>
+    </view>
+    <button bindtap='chooseImage'>重新选择</button> -->
+		<view >
+			<image style='position: relative;;width:100px;height:140px;display:inline-block;margin-left:2px;top:2px;' src='{{srcFirst}}'></image>
+			<image style='position: relative;width:100px;height:140px;display:inline-block;left:10px;top:2px;' src='{{srcSecond}}'></image>
+			<image style='position: relative;width:100px;height:140px;display:inline-block;left:20px;top:2px;' src='{{srcThird}}'></image>
+		</view>
+		<button bindtap='goTocamera' class='new_takephoto'>重新拍照</button>
+  </block>
+  <view class='view_input'>
+    <textarea placeholder="请输入商品标题(最多25字)" maxlength='25' auto-height="true"  show-confirm-bar = "{{false}}" bindinput='input_Title'></textarea>
+		<!-- <van-cell-group>
+  <van-field
+    
+    label="标题"
+    type="textarea"
+    placeholder="请输入标题"
+    autosize
+    border="{{ false }}"
+		bind:input = "input_Title"
+  />
+</van-cell-group> -->
+  </view>
+  <input class='price_Input' placeholder="请输入商品价格（元）" type='digit' bindinput='input_prise'></input>
+  <view style='display:flex;flex-direction:row;'>
+    <view class='classify' bindtap='change_modal'>选择分类</view>
+    <view class='show_class'>{{classified_content}}</view>
+    <!-- concel-text="取消" -->
+    <modal 
+      class="modal_classify"
+      title="请选择商品分类" 
+      confirm-text="确定"
+      hidden="{{mHidden}}"
+      no-cancel="{{true}}"
+      bindconfirm="change_modal">
+        <view>
+          <picker-view
+            indicator-style="height: 50px;"
+            style="height: 300px;"
+            value="{{value}}"
+            bindchange="bindChange"
+          >
+            <picker-view-column>
+              <view wx:for="{{category}}" style="line-height: 50px">{{item}}</view>
+            </picker-view-column>
+            <picker-view-column>
+              <view wx:for="{{book[show_second]}}" style="line-height: 50px">{{item}}</view>
+            </picker-view-column>
+          </picker-view>
+        </view>
+      </modal>
+  </view>
+    <textarea class="detail" placeholder="请输入商品详细信息" maxlength='300' show-confirm-bar = "{{false}}" bindinput='input_detail'></textarea>
+			<!-- <van-cell-group>
+  <van-field
+    
+    label="详细信息"
+    type="textarea"
+    placeholder="请输入商品详细信息"
+    autosize
+    border="{{ false }}"
+		bind:input = "input_detail"
+  />
+</van-cell-group> -->
+  
+  <view class='bottom_view'>
+    <button class='record' bindlongpress='record' hover-class="hover-class" bindtouchstart='touchStart' bindtouchend='touchEnd' bindtap='pressTap'>长按录音</button>
+    <view class='count'>{{time}}s</view>
+  </view>
+  <view wx:if="{{show_playRecord}}" class="playRecord" bindtap='playRecord' transition>播放录音</view>
+  <button class="submit" bindtap='uploadAll'>提交信息</button>
+</view>
+
+<canvas class='compress-image' style='weight=750rpx;height=30vh' canvas-id='compress-image'></canvas>

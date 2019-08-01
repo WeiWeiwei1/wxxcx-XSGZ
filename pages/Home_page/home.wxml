@@ -1,0 +1,8 @@
+<!--pages/Home_page/home.wxml-->
+<swiper indicator-dots='true'  autoplay='true' circular='true'>
+  <swiper-item >
+    <image  src='https://images.unsplash.com/photo-1551334787-21e6bd3ab135?w=640'></image>   
+  </swiper-item>
+  <swiper-item><image src='https://images.unsplash.com/photo-1551214012-84f95e060dee?w=640'></image></swiper-item> 
+</swiper>
+<button bindtap='goto_comodity'>显示商品</button>

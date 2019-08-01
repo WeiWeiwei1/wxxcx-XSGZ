@@ -1,0 +1,92 @@
+/* pages/camara/camara.wxss */
+page{
+	background-color: rgb(83,83,83)
+}
+.diycamera{
+	position: absolute;
+	left:5px;
+	top:5px;	
+}
+.tip{
+	position: absolute;
+	width: 120px;
+	height: 50px;
+	z-index: 100;
+	font-size: 15px;
+	font-weight: bold;
+	line-height: 50px;
+	top: 5px;
+	left: 50vw;
+	margin-left: -60px;
+	opacity: .5;
+}
+.take{
+	position: absolute;
+	opacity: 0.3;
+	left:5px;
+	top:50px;
+	border: 2px solid rgb(221, 218, 220);
+  box-sizing: border-box;
+}
+.circle{
+		position: absolute;
+	  width: 50rpx;
+    height: 50rpx;
+    border: 10px solid black;
+    /*设置圆角  */
+    border-radius: 50%;
+		bottom: 5px;
+		left: 375rpx;
+		margin-left: -25rpx;
+		opacity: .5;
+		z-index: 100;
+}
+.first-photo{
+	width: 100px;
+	height: 140px;
+	position: absolute;
+	bottom: 5px;
+	left: 1px;
+}
+.second-photo{
+	width: 100px;
+	height: 140px;
+	position: absolute;
+	bottom: 5px;
+	left: 103px;
+}
+.third-photo{
+	width: 100px;
+	height: 140px;
+	position: absolute;
+	bottom: 5px;
+	left: 205px;
+}
+.cancel{
+	position: absolute;
+	background-color:rgb(97, 95, 96);
+	color: white;
+	width: 60px;
+	height: 40px;
+	font-size: 15px;
+	opacity: .5;
+	bottom: 5px;
+	left: 70vw;
+	line-height: 40px;
+	padding-left: 25px;
+	z-index: 100;
+}
+.ok{
+	position: absolute;
+	z-index: 100;
+	background-color:rgb(97, 95, 96);
+	color: white;
+	width: 60px;
+	height: 40px;
+	font-size: 15px;
+	opacity: .5;
+	bottom: 5px;
+	left: 5vw;
+	line-height: 40px;
+	padding-left: 25px;
+}

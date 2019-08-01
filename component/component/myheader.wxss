@@ -1,0 +1,9 @@
+/* component/component/myheader.wxss */
+.myheader{
+  background-color: blue;
+  color: red;
+  width: 100%;
+  height: 300rpx;
+  
+  
+}

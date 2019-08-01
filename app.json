@@ -1,0 +1,47 @@
+{
+	"pages": [
+		"pages/Home_page/home",
+		"pages/Commodity_description/description",
+		"pages/Commodity_page/commodity",
+		"pages/index/index",
+		"pages/Buyer_page/buyer",
+		"pages/Zhuce_page/zhuce",
+		"pages/Seller_page/seller",
+		"pages/Category_page/category",
+		"pages/camera/camera",
+		"pages/chat/chat",
+		"pages/trolley/trolley",
+		"pages/shop/shop",
+		"pages/buy/buy"
+	],
+	"window": {
+		"backgroundTextStyle": "light",
+		"navigationBarBackgroundColor": "#9999ff",
+		"navigationBarTitleText": "测试号",
+		"navigationBarTextStyle": "white",
+		"backgroundColor": "red"
+	},
+	"tabBar": {
+		"list": [
+			{
+				"pagePath": "pages/Home_page/home",
+				"text": "主页"
+			},
+			{
+				"pagePath": "pages/Category_page/category",
+				"text": "分类"
+			},
+			{
+				"pagePath": "pages/Seller_page/seller",
+				"text": "卖家中心"
+			},
+			{
+				"pagePath": "pages/Zhuce_page/zhuce",
+				"text": "个人中心"
+			}
+		],
+		"color": "blue",
+		"opacity": 0
+	},
+	"sitemapLocation": "sitemap.json"
+}
