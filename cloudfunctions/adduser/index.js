@@ -8,9 +8,10 @@ const db = cloud.database()
 exports.main = async (event, context) => {
 
 	return new Promise((resolve, reject) => {
+		const wxContext = cloud.getWXContext()
 		db.collection("user").add({
 			data: {
-				_openid: event.openid,
+				_openid: wxContext.OPENID,
 				nickName: event.name,
 				avatarUrl: event.avatarUrl,
 				favorite: [],
@@ -19,6 +20,9 @@ exports.main = async (event, context) => {
 				trolly: [],
 				bought: [],
 				share: []
+			},
+			success:function(){
+				resolve()
 			}
 		})
 	})

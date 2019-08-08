@@ -3,7 +3,7 @@ const app = getApp()
 console.log(app.globalData)
 wx.cloud.init()
 const db = wx.cloud.database()
-const chat = require('../../utils/chat.js')
+const chat = require('../../utils/chat1.js')
 Page({
 
   /**
@@ -35,7 +35,7 @@ Page({
 		user_openid: '',
 		avatarUrl: '',
 		name: '',
-
+  
   },
 	// tabbar
 	onChange(event) {
@@ -46,67 +46,37 @@ Page({
 		})
 	},
 	// ----
-	// 注册用户
-	add_yundata: function () {
-		var that = this
-		db.collection('user').where({
-			_openid: that.openid
-		}).get({
-			success: function (res) {
-				console.log(res.data.length)
-				if (res.data.length == 0) {
-					wx.cloud.callFunction({
-						name: 'adduser',
-						data: {
-							openid: that.data.openid,
-							avatarUrl: that.data.userInfo.avatarUrl,
-							name: that.data.userInfo.nickName
-						}
-					}).then(res => {
-						console.log(res)
-					})
-				}
-			}
-		})
-	},
-  getUserinfo:function(){
-    app.getUserinfo
-    setTimeout(
-      function() {
-        this.setData({
-          userInfo: app.data.userInfo,
-          hasUserInfo: app.data.hasUserInfo,
-          canIUse: app.data.canIUse
-        })
-        }
-      ,1000)
-    console.log(userInfo,this.data.userInfo)
+  zhuce: function () {
+    wx.cloud.callFunction({
+      // 瑕佽皟鐢ㄧ殑浜戝嚱鏁板悕绉?
+      name: 'user_add',
+      // 浼犻€掔粰浜戝嚱鏁扮殑event鍙傛暟
+      data: {
+        type: "add_user"
+      }
+    }).then(res => {
+      console.log(res)
+    }).catch(err => {
+      // handle error
+    })
   },
-	zhuce:function(){
-		wx.cloud.callFunction({
-			// 要调用的云函数名称
-			name: 'user_add',
-			// 传递给云函数的event参数
-			data: {
-				type: "add_user"
-			}
-		}).then(res => {
-			console.log(res)
-		}).catch(err => {
-			// handle error
-		})
-	},
 
   /**
    * 生命周期函数--监听页面加载
    */
   onLoad: function (options) {
-    // 获取当前app用户信息权限 信息
 		var that = this
+		// 写入消息数
+		app.set_timer(that)
+		setInterval(function () {
+			that.setData({
+				count: app.globalData.count
+			})
+		}, 1000)
+    // 获取当前app用户信息权限 信息
+	
 		var promise1 = new Promise(function(resolve,reject){
-		 
 			 chat.user_openid(resolve)
-		
 		})
 		promise1.then(res=>{
 			that.setData({
@@ -127,7 +97,9 @@ Page({
           hasUserInfo: true,
 					name:res.nickName
         })
+				
       }
+			
     } else {
       // 在没有 open-type=getUserInfo 版本的兼容处理
       wx.getUserInfo({
@@ -137,6 +109,7 @@ Page({
             userInfo: res.userInfo,
             hasUserInfo: true
           })
+					
         }
       })
     }
@@ -191,6 +164,7 @@ Page({
 
   },
   getUserInfo: function (e) {
+		var that = this
     console.log(e)
 		this.zhuce()
     app.globalData.userInfo = e.detail.userInfo
@@ -198,5 +172,16 @@ Page({
       userInfo: e.detail.userInfo,
       hasUserInfo: true
     })
+		var promise2 = new Promise(function (resolve, reject) {
+			console.log()
+			chat.add_user(e.detail.userInfo.nickName, e.detail.userInfo.avatarUrl, resolve)
+		})
+		promise2.then(res => {
+			console.log('上传用户user成功')
+		})
+		var promise3 = new Promise(function(resolve,reject){
+			chat.add_message( e.detail.userInfo.nickName, e.detail.userInfo.avatarUrl, resolve)
+		})
+		promise3
   }
 })

@@ -1,5 +1,8 @@
 // pages/Home_page/home.js
+wx.cloud.init()
+const db = wx.cloud.database()
 const app = getApp()
+var chat = require('../../utils/chat1.js')
 Page({
 
   /**
@@ -16,12 +19,22 @@ Page({
 		// ----
 
   },
+  // 点击上架商品
+  clickshang:function(){
+    wx.navigateTo({
+      url: '../Commodity_page/commodity'
+    })
+  },
 	// tabbar
 	onChange(event) {
 		console.log(event.detail);
+		var a 
 		var tabbarlist = app.globalData.tabbarlist
+		a = event.detail
+		if (event.detail == 3){a = 2}
+		if(event.detail == 2){a=3}
 		wx.redirectTo({
-			url: tabbarlist[event.detail]
+			url: tabbarlist[a]
 		})
 	},
 	// ----
@@ -35,7 +48,24 @@ Page({
    * 生命周期函数--监听页面加载
    */
   onLoad: function (options) {
-    
+		var that = this
+    var promise5 = new Promise(function(resolve,reject){
+      chat.user_openid(resolve)
+    })
+    promise5.then(res=>{
+      app.globalData.user_openid = res
+    })
+    app.set_timer(that)
+		setInterval(function () {
+			that.setData({
+				count: app.globalData.count
+			})
+		}, 1000)
+		// setInterval(function () {
+		// 	that.setData({
+		// 		count: app.globalData.count
+		// 	})
+		// }, 1000)
 
   },
 
