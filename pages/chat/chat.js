@@ -13,7 +13,10 @@ var keyHeight = 0;
 wx.cloud.init();
 const db = wx.cloud.database();
 var server_openid
-
+var user_openid
+const chat = require('../../utils/chat1.js')
+var face_openid
+var timershow
 /**
  * 初始化数据
  */
@@ -21,7 +24,6 @@ function initData(that) {
 	inputVal = '';
 	var chatData
 	// 初始化聊天内容，获取数据库中保存的内容，获取本地的内容
-
 	wx.getStorage({
 		key: 'chatData' + server_openid,
 		success(res) {
@@ -34,7 +36,6 @@ function initData(that) {
 			console.log('获取本地成功', msgList)
 		},
 		fail(err) {
-
 			msgList = [{
 				speaker: 'server',
 				contentType: 'text',
@@ -74,7 +75,7 @@ Page({
 		scrollHeight: '100vh',
 		inputBottom: 0,
 		//用户数据
-		userInfo: {},
+		userData:'',
 		openid: '',
 		user_id: '',
 		user_msg: '',
@@ -82,7 +83,12 @@ Page({
 		serverData: '',
 		face_id: '',
 		face_msg: [],
-		msgList: ''
+		msgList: '',
+		// 可视化数据
+		chat_visaul:[],
+    timer:'',
+    // ceshi
+    ceshi:100,
 	},
 	// 获取服务器时间
 	get_time: function (op) {
@@ -143,74 +149,71 @@ Page({
    * 生命周期函数--监听页面加载
    */
 	onLoad: function (options) {
+    console.log('页面创建')
+		console.log("options",options)
 		var that = this
-		that.get_time()
-		console.log("options Chat_Page", options)
-		server_openid = options.openid
-		initData(this);
-		// 获取用户头像
-		wx.getUserInfo({
-			success: res => {
-				this.setData({
-					cusHeadIcon: res.userInfo.avatarUrl,
-					userInfo: res.userInfo
-				})
-			}
-		})
-		//获取客服信息
-		server_openid = options.openid
-		db.collection('user').where({
-			//options中变量，由上一个页面传入
-			_openid: server_openid
-		}).get().then((res) => {
+		// 初始化
+		// 1.获取传入的face_openid
+		face_openid = options.openid
+		// 2.获取对方和用户头像和昵称
+		db.collection('message').where({
+			_openid:face_openid
+		}).get().then(res=>{
 			that.setData({
-				serverData: res.data[0]
+				serverData:res.data[0]
 			})
 		})
-		//获取用户openid
-		wx.cloud.callFunction({
-			name: 'getopenid',
-			data: {},
-			success: function (res) {
+		var promise160 = new Promise(function(resolve,reject){
+			chat.user_openid(resolve)
+		})
+		promise160.then(res=>{
+      user_openid = res
+			db.collection('message').where({
+				_openid: res
+			}).get().then(res => {
 				that.setData({
-					openid: res.result.openid,
-					face_openid: options.openid
+					userData: res.data[0] 
 				})
-				//获取对面的message _id
+			})
+		})
+		// 3.获取与对方聊天的本地缓存
+		var chatCache
+		console.log('face_openid', face_openid)
+		var promise17 = new Promise(function(resolve,reject){
+			chat.getChatCache(face_openid,resolve)
+		})
+		promise17.then(res=>{
 
-				db.collection('message').where({
-					_openid: options.openid
-				}).get().then(res => {
-					if (res.data.length == 0) {
-						wx.cloud.callFunction({
-							name: 'addmessage',
-							data: {
-								avatarUrl: that.data.serverData.avatarUrl,
-								name: that.data.serverData.nickName
-							},
-							success: function () {
-								db.collection('message').where({
-									_openid: options.openid
-								}).get().then(res => {
-									console.log(res)
-									that.setData({
-										face_id: res.data[0]._id,
-										face_msg: res.data[0].msg
-									})
-									console.log('初始化完成')
-								})
-							}
-						})
-					} else {
-						console.log(res)
-						that.setData({
-							face_id: res.data[0]._id,
-							face_msg: res.data[0].msg
-						})
-						console.log('初始化完成')
-					}
-				})
-			}
+			chatCache = res
+			that.setData({
+				chat_visaul:res
+			})
+      console.log('写入chat_visaul',that.data.chat_visaul)
+      console.log(typeof user_openid)
+      // 定时器 加载对方消息
+      that.setData({
+        timer: setInterval(function(){
+          if (typeof user_openid == 'undefined') {
+            var promise188 = new Promise(function (resolve, reject) {
+              chat.user_openid(resolve)
+            })
+            promise188.then(res => {
+              user_openid = res
+              chat.get_face_msg(user_openid, face_openid, that)
+            })
+          } else {
+              chat.get_face_msg(user_openid, face_openid, that)
+            
+            
+            that.setData({
+              chat_visaul:that.data.chat_visaul
+            })
+          }
+        },3000)
+      })
+      
+      
+      
 		})
 
 	},
@@ -218,7 +221,9 @@ Page({
    * 生命周期函数--监听页面显示
    */
 	onShow: function () {
-
+    console.log('页面出现在前台时执行')
+    
+    
 	},
 
   /**
@@ -259,7 +264,8 @@ Page({
 			inputBottom: 0
 		})
 		this.setData({
-			toView: 'msg-' + (msgList.length - 1)
+			toView: 'msg-' + (this.data.chat_visaul.length - 1),
+			inputVal:''
 		})
 
 	},
@@ -269,19 +275,20 @@ Page({
    */
 	sendClick: function (e) {
 		var that = this
+		msgList = that.data.chat_visaul
+    let aa = msgList
+    console.log('发送开始，获取本地chatvisaul',aa)
 		msgList.push({
 			speaker: 'customer',
 			contentType: 'text',
 			content: e.detail.value
 		})
+    console.log('向chatvisaul存入自己的聊天记录')
 		inputVal = '';
-		that.setData({
-			msgList,
-			inputVal
-		});
+		
 		//保存聊天数据到本地
 		//判断数据是否超出500条，超出删除再保存
-		var msg = msgList
+		let msg = msgList
 		let msgl = msgList.length
 		if (msg.length > 500) {
 			msg.copyWithin(0, mas.length - 500)
@@ -290,36 +297,39 @@ Page({
 				msgl--
 			}
 		}
+		that.setData({
+			chat_visaul: msg
+		});
+    console.log('写入页面可视化', msg)
 		// 获取服务器时间后上传消息
-		wx.cloud.callFunction({
-			name: 'getstep',
-			success: function (res) {
-				console.log(res.result.time)
-				that.upMessage({ s: e.detail.value, time: res.result.time })
-			}
-		})
-		wx.setStorage({
-			key: 'chatData' + this.data.server_openid,
-			data: msg
-		})
+		chat.write_face_message(face_openid,user_openid, e.detail.value)
+		console.log('将要保存',msg)
+		chat.setChatCache(that.data.serverData._openid,msg)
 	},
 	/**
    * 监听页面隐藏
    */
 	onHide: function () {
-
+    console.log('页面隐藏')
+    timershow = 1
 	},
 	/**
 	* 监听页面卸载
 	*/
 	onUnload: function () {
-
+    console.log('页面卸载')
+    clearInterval(this.data.timer)
+    timershow = 1
 	},
   /**
    * 退回上一页
    */
 	toBackClick: function () {
+    console.log('退回上一页')
+    clearInterval(this.data.timer)
+    timershow = 1
 		wx.navigateBack({})
+    
 	}
 
 })

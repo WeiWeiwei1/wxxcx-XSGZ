@@ -1,4 +1,7 @@
 //app.js
+wx.cloud.init()
+const db = wx.cloud.database()
+const chat = require('utils/chat1.js')
 App({
   onLaunch: function () {
     // 展示本地存储能力
@@ -32,6 +35,13 @@ App({
       }
     })
   },
+	// 设置一个定时器,获取未读消息数
+	set_timer: function () {
+		var that = this
+		this.globalData.timer = setInterval(function () {
+			chat.get_noread_count(that)
+		}, 2000)
+	},
   globalData: {
     userInfo: null,
 		// 相机页数据
@@ -41,7 +51,8 @@ App({
 		used: 1,
 		timer: '',
 		count: 0,
-		tabbarlist: ['../Home_page/home?index=0', '../Category_page/category?index=1', '../chatlist/chatlist?index=2', '../Zhuce_page/zhuce?index=3']
+		tabbarlist: ['../Home_page/home?index=0', '../Category_page/category?index=1', '../chatlist/chatlist?index=2', '../Zhuce_page/zhuce?index=3'],
+    user_openid:'',
 	}
   
 })

@@ -1,9 +1,8 @@
 <!--pages/chat/chat.wxml-->
 <view>
-
   <scroll-view scroll-y scroll-into-view='{{toView}}' style='height: {{scrollHeight}};'>
     <!-- <view class='scrollMsg'> -->
-    <block wx:key wx:for='{{msgList}}' wx:for-index="index">
+    <block wx:key wx:for='{{chat_visaul}}' wx:for-index="index">
 
       <!-- 单个消息1 客服发出（左） -->
       <view wx:if='{{item.speaker=="server"}}' id='msg-{{index}}' style='display: flex; padding: 2vw 11vw 2vw 2vw;'>
@@ -29,7 +28,7 @@
         </view>
 				<!-- 用户头像 -->
         <view style='width: 11vw; height: 11vw;'>
-          <image style='width: 11vw; height: 11vw; border-radius: 10rpx;' src='{{cusHeadIcon}}'></image>
+          <image style='width: 11vw; height: 11vw; border-radius: 10rpx;' src='{{userData.avatarUrl}}'></image>
         </view>
       </view>
 
